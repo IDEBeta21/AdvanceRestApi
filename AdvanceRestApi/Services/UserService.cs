@@ -12,40 +12,63 @@ namespace AdvanceRestApi.Services
         {
             _dbContext = dbContext;
         }
-        public async Task AddUser(User user)
+        public async Task<(bool IsSuccess, string ErrorMessage)> AddUser(User user)
         {
-            await _dbContext.Users.AddAsync(user);
-            await _dbContext.SaveChangesAsync();
+            if(user!=null)
+            {
+                await _dbContext.Users.AddAsync(user);
+                await _dbContext.SaveChangesAsync();
+                return (true, null);
+            }
+            return (false, "Please provide the user data");
         }
 
-        public async Task DeleteUser(Guid id)
+        public async Task<(bool IsSuccess, string ErrorMessage)> DeleteUser(Guid id)
         {
+
             var user = await _dbContext.Users.FindAsync(id);
-            _dbContext.Users.Remove(user);
-            await _dbContext.SaveChangesAsync();
+            if (user != null)
+            {
+                _dbContext.Users.Remove(user);
+                await _dbContext.SaveChangesAsync();
+                return (true, null);
+            }
+            return (false, "No user found");
         }
 
-        public async Task<List<User>> GetAllUsers()
+        public async Task<(bool IsSuccess, List<User> User, string ErrorMessage)> GetAllUsers()
         {
             var users = await _dbContext.Users.ToListAsync();
-            return users;
+            if(users!=null)
+            {
+                return (true, users, null);
+            }
+            return (false,null,"No users found");
         }
 
-        public async Task<User> GetUserById(Guid id)
+        public async Task<(bool IsSuccess, User User, string ErrorMessage)> GetUserById(Guid id)
         {
             var user = await _dbContext.Users.FindAsync(id);
-            return user;
+            if (user != null)
+            {
+                return (true, user, null);
+            }
+            return (false, null, "No user found");
         }
 
-        public async Task UpdateUser(Guid id, User user)
+        public async Task<(bool IsSuccess, string ErrorMessage)> UpdateUser(Guid id, User user)
         {
             var userObj = await _dbContext.Users.FindAsync(id);
-            userObj.Name = user.Name;
-            userObj.Address = user.Address;
-            userObj.Phone = user.Phone;
-            userObj.BloodGroup = user.BloodGroup;
-            await _dbContext.SaveChangesAsync();
-
+            if (userObj != null)
+            {
+                userObj.Name = user.Name;
+                userObj.Address = user.Address;
+                userObj.Phone = user.Phone;
+                userObj.BloodGroup = user.BloodGroup;
+                await _dbContext.SaveChangesAsync();
+                return (true, null);
+            }
+            return (false, "User not found");
         }
     }
 }
