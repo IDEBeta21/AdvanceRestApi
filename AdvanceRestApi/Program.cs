@@ -2,6 +2,7 @@ using AdvanceRestApi.Data;
 using AdvanceRestApi.Interfaces;
 using AdvanceRestApi.Profiles;
 using AdvanceRestApi.Services;
+using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,9 +19,27 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<UserDbContext>(option => option.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=UsersDb;"));
 builder.Services.AddScoped<IUser, UserService>();
 
+builder.Services.AddMemoryCache();
+builder.Services.Configure<IpRateLimitOptions>(options =>
+{
+    options.GeneralRules = new List<RateLimitRule>()
+    {
+        new RateLimitRule()
+        {
+            Endpoint = "*",
+            Limit = 200,
+            Period = "3m"
+        }
+    };
+});
+builder.Services.AddInMemoryRateLimiting();
+
+builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseIpRateLimiting();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
