@@ -1,5 +1,4 @@
-﻿using AdvanceRestApi.Data;
-using AdvanceRestApi.DTO_s;
+﻿using AdvanceRestApi.DTO_s;
 using AdvanceRestApi.Models;
 using AutoMapper;
 

@@ -1,4 +1,4 @@
-using AdvanceRestApi.Data;
+//using AdvanceRestApi.Data;
 using AdvanceRestApi.Interfaces;
 using AdvanceRestApi.Profiles;
 using AdvanceRestApi.Services;
@@ -16,7 +16,8 @@ builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<UserDbContext>(option => option.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=UsersDb;"));
+//builder.Services.AddDbContext<UserDbContext>(option => option.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=UsersDb;"));
+
 builder.Services.AddScoped<IUser, UserService>();
 
 builder.Services.AddMemoryCache();
