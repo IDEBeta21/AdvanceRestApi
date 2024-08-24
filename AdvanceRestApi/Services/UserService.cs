@@ -20,7 +20,7 @@ namespace AdvanceRestApi.Services
             var mongoDatabase = mongoClient.GetDatabase("UsersDb");
             usersCollection = mongoDatabase.GetCollection<User>("Users");
         }
-        public async Task<(bool IsSuccess, string ErrorMessage)> AddUser(UserDTO userdto)
+        public async Task<(bool IsSuccess, string ErrorMessage)> AddUser(AddUserDto userdto)
         {
             if(userdto!=null)
             {

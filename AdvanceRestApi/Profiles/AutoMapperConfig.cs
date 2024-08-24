@@ -9,6 +9,7 @@ namespace AdvanceRestApi.Profiles
         public AutoMapperConfig() 
         {
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<User, AddUserDto>().ReverseMap();
         }   
     }
 }

@@ -46,7 +46,7 @@ namespace AdvanceRestApi.Controllers
 
         // POST api/<UsersController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] UserDTO user)
+        public async Task<IActionResult> Post([FromBody] AddUserDto user)
         {
             var result = await _userService.AddUser(user);
             if(result.IsSuccess)
