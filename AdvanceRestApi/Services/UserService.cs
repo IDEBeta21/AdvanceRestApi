@@ -20,7 +20,7 @@ namespace AdvanceRestApi.Services
             var mongoDatabase = mongoClient.GetDatabase("UsersDb");
             usersCollection = mongoDatabase.GetCollection<User>("Users");
         }
-        public async Task<(bool IsSuccess, string ErrorMessage)> AddUser(AddUserDto userdto)
+        public async Task<(bool IsSuccess, string ErrorMessage)> AddUser(AddUserDtoRequest userdto)
         {
             if(userdto!=null)
             {
@@ -65,7 +65,7 @@ namespace AdvanceRestApi.Services
             return (false, null, "No user found");
         }
 
-        public async Task<(bool IsSuccess, string ErrorMessage)> UpdateUser(Guid id, UserDTO userdto)
+        public async Task<(bool IsSuccess, string ErrorMessage)> UpdateUser(Guid id, UpdateUserRequest userdto)
         {
             var userObj = await usersCollection.Find(u => u.Id == id).FirstOrDefaultAsync();
             if (userObj != null)
@@ -75,7 +75,7 @@ namespace AdvanceRestApi.Services
                 userObj.Address = user.Address;
                 userObj.Phone = user.Phone;
                 userObj.BloodGroup = user.BloodGroup;
-                await usersCollection.ReplaceOneAsync(u => u.Id == id, user);
+                await usersCollection.ReplaceOneAsync(u => u.Id == id, userObj);
                 return (true, null);
             }
             return (false, "User not found");

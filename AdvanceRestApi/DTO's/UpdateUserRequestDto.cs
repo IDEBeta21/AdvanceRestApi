@@ -1,6 +1,6 @@
 ﻿namespace AdvanceRestApi.DTO_s
 {
-    public class AddUserDtoRequest
+    public class UpdateUserRequest
     {
         public string Name { get; set; }
         public string Address { get; set; }
