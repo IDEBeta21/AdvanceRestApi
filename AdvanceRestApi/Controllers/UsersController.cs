@@ -20,7 +20,7 @@ namespace AdvanceRestApi.Controllers
         }
 
         // GET: api/<UsersController>
-        [HttpGet]
+        [HttpGet("get-all-users")]
         [EnableQuery]
         public async Task<IActionResult> Get()
         {
@@ -33,7 +33,7 @@ namespace AdvanceRestApi.Controllers
         }
 
         // GET api/<UsersController>/5
-        [HttpGet("{id}")]
+        [HttpGet("get-user-by-id/{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
             var result = await _userService.GetUserById(id);
@@ -45,7 +45,7 @@ namespace AdvanceRestApi.Controllers
         }
 
         // POST api/<UsersController>
-        [HttpPost]
+        [HttpPost("add-user")]
         public async Task<IActionResult> Post([FromBody] AddUserDto user)
         {
             var result = await _userService.AddUser(user);
@@ -57,7 +57,7 @@ namespace AdvanceRestApi.Controllers
         }
 
         // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
+        [HttpPut("update-user-by-id/{id}")]
         public async Task<IActionResult> Put(Guid id, [FromBody] UserDTO user)
         {
             var result = await _userService.UpdateUser(id, user);
@@ -69,7 +69,7 @@ namespace AdvanceRestApi.Controllers
         }
 
         // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("delete-user-by-id/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _userService.DeleteUser(id);
