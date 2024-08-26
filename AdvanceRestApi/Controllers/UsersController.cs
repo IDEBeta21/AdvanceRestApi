@@ -46,7 +46,7 @@ namespace AdvanceRestApi.Controllers
 
         // POST api/<UsersController>
         [HttpPost("add-user")]
-        public async Task<IActionResult> Post([FromBody] AddUserDto user)
+        public async Task<IActionResult> Post([FromBody] AddUserDtoRequest user)
         {
             var result = await _userService.AddUser(user);
             if(result.IsSuccess)
@@ -58,7 +58,7 @@ namespace AdvanceRestApi.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("update-user-by-id/{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromBody] UserDTO user)
+        public async Task<IActionResult> Put(Guid id, [FromBody] UpdateUserRequest user)
         {
             var result = await _userService.UpdateUser(id, user);
             if(result.IsSuccess)

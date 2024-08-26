@@ -8,8 +8,12 @@ namespace AdvanceRestApi.Profiles
     {
         public AutoMapperConfig() 
         {
+            //Template
+            //CreateMap<{source}, {destination}>();
+            //CreateMap<{destination}, {source}>().ReverseMap();
             CreateMap<User, UserDTO>().ReverseMap();
-            CreateMap<User, AddUserDto>().ReverseMap();
+            CreateMap<User, AddUserDtoRequest>().ReverseMap();
+            CreateMap<User, UpdateUserRequest>().ReverseMap();
         }   
     }
 }
